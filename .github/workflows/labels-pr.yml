@@ -6,10 +6,7 @@ name: Add Don't merge label in ri branches
 on:
   pull_request:
     branches:
-    - "master"
-    - "master-ri"
-    - "dev-ri"
-    - "unstable-ri"
+    - "*er"
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -19,11 +16,11 @@ jobs:
     steps:
       - uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.BAIKAL_CHECKOUT_TOKEN }}
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['Don't merge']
+              labels: ["Don't merge"]
             })
